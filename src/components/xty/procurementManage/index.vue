@@ -4,7 +4,7 @@
       <a-button @click="addVisible=true">
         <a-icon style="color:#1890ff;" type="plus" />新增
       </a-button>
-      <a-button>
+      <a-button @click="editVisible=true">
         <a-icon style="color:#1890ff;" type="edit" />修改
       </a-button>
       <a-button>
@@ -73,6 +73,17 @@
           </div>
         </template>
       </a-table>
+       <a-pagination
+            style="padding-top:12px;text-align: right;"
+            showQuickJumper
+            :defaultCurrent="current"
+            :total="total"
+            @change="onChange"
+            showSizeChanger
+            :pageSizeOptions="['10','20','30']"
+            @showSizeChange="onShowSizeChange"
+            :showTotal="total => `共 ${total} 条`"
+          />
     </a-row>
      <a-modal
      title="新增"
@@ -82,9 +93,18 @@
      >
       <add-procurement></add-procurement>
     </a-modal>
+    <a-modal
+     title="修改"
+     v-model="editVisible"
+     width="1200px"
+     :footer="null"
+     >
+      <edit-procurement></edit-procurement>
+    </a-modal>
   </div>
 </template>
 <script>
+import EditProcurement from "./editProcurement"
 import AddProcurement from "./addProcurement"
 const columns = [
   {
@@ -138,15 +158,31 @@ export default {
       data: [],
       selectedRowKeys: [],
       addVisible: false,
+      editVisible: false,
+      current: 1,
+      pageSize: 10,
+      total: 0,
       state: -1
     };
   },
   methods: {
+     onChange(current, pageNumber) {
+      console.log("Page: ", pageNumber);
+      console.log("第几页: ", current);
+      this.current = current;
+      this.getList();
+    },
+    onShowSizeChange(current, pageSize) {
+      this.pageSize = pageSize;
+      this.current = 1;
+      this.getList();
+    },
     onSelectChange() {},
     getList() {}
   },
   components: {
-      AddProcurement
+      AddProcurement,
+      EditProcurement
   }
 };
 </script>

@@ -9,7 +9,7 @@
           <a-icon style="color:#1890ff;" type="edit" />修改
         </a-button>
         <a-button @click="addBomVisible=true">
-          <a-icon style="color:#1890ff;" type />BOM导入
+          <a-icon style="color:#1890ff;" type />BOM管理
         </a-button>
         <a-button>
           <a-icon style="color:#1890ff;" type />BOM导出
@@ -25,14 +25,14 @@
     <div class="design_content">
       <a-row>
         <a-col :span="5">
-          <span>日期 :</span>
+          <span>日期 : </span>
           <a-date-picker style="width:120px"></a-date-picker>
           <span>~</span>
           <a-date-picker style="width: 120px"></a-date-picker>
         </a-col>
         <a-col :span="3">
           <a-input-group>
-            <span>审批状态 :</span>
+            <span>审批状态 : </span>
             <a-select :defaultValue="-1" style="width: 100px">
               <a-select-option :value="-1">全部</a-select-option>
               <a-select-option :value="1">暂存</a-select-option>
@@ -56,17 +56,17 @@
           :total="30"
           showQuickJumper
           showSizeChanger
-          :pageSizeOptions="['10','20','30']"
+          :pageSizeOptions="['10','20','50','100']"
           :showTotal="total => `共 ${total} 条`"
         ></a-pagination>
       </a-row>
-      <a-modal title="新增" v-model="addVisible" width="800px" :footer="null">
+      <a-modal title="新增" v-model="addVisible" width="1200px" :footer="null">
         <add-design-manage @changeAddOrder="cancelAddOrder"></add-design-manage>
       </a-modal>
       <a-modal
         title="导入BOM"
         v-model="addBomVisible"
-        width="1500px"
+        width="1200px"
         okText="提交"
         @ok="addBomVisible=false"
         @cancel="addBomVisible=false"

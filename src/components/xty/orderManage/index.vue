@@ -10,14 +10,9 @@
             <a-button @click="editVisible=true" :disabled="selectedRowKeys.length!=1">
               <a-icon type="edit" style="color: #1890ff" />修改
             </a-button>
-            <a-button @click="submitVisible=true">
+            <a-button @click="submitVisible=true" :disabled="selectedRowKeys.length!=1">
               <a-icon type="submit" style="color: #1890ff" />提交审批
             </a-button>
-            <a-popconfirm title="确定提交设计申请吗" okText="确定" cancelText="取消">
-              <a-button :disabled="applyShow">
-                <a-icon type="submit" style="color: #1890ff" />提交设计申请
-              </a-button>
-            </a-popconfirm>
             <a-button :disabled="selectedRowKeys.length==0" @click="showDeleteConfirm">
               <a-icon type="delete" style="color: #1890ff" />删除
             </a-button>
@@ -154,7 +149,7 @@ const columns = [
   },
   {
     dataIndex: "no",
-    title: "订单编号",
+    title: "项目订单编号",
     key: "no",
     width: "13%"
   },
@@ -211,17 +206,7 @@ export default {
   data() {
     return {
       columns,
-      data: [
-        {
-          no: "XSHT-20190918-001",
-          contracNo: "ZZDD-20190918-001",
-          contractName: "炒菜机主板研发合同",
-          undertakeDep: "项目名称项目名称项目名称",
-          orderType: "设计制造类",
-          orderReviewSchedule: "3",
-          remark: "111"
-        }
-      ],
+      data: [],
       addVisible: false,
       submitVisible: false,
       editVisible: false,

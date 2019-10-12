@@ -85,7 +85,7 @@
         </a-row>
         <a-row>
           <a-form-item label="签订时间" :labelCol="{span:3}" :wrapperCol="{span:21}">
-            <a-input v-decorator="['gmtSign']"></a-input>
+            <a-date-picker @change="onChangeSign" style="width:90%" v-decorator="['gmtSign']" format="YYYY/MM/DD"/>
           </a-form-item>
         </a-row>
         <a-row>
@@ -135,6 +135,7 @@ export default {
       form: this.$form.createForm(this),
       orderNo: '',
       dataValue: '',
+      signDate: '',
       fileList: [],
 
     };
@@ -142,6 +143,9 @@ export default {
   methods: {
     closeAdd() {
      this.$emit("changeAddOrder", false);
+    },
+    onChangeSign(data,dateString) {
+      this.signDate = dateString;
     },
     onChange(date, dateString) {
 			console.log(date, dateString);
@@ -184,6 +188,7 @@ export default {
             contractNo: values.contractNo,
             customerName: values.customerName,
             measureUnit: values.measureUnit,
+            gmtSign: this.signDate,
             gmtDelivery: this.dataValue,
             no: values.no,
             orderType: values.orderType,
@@ -210,14 +215,15 @@ export default {
                 this.getlist();
                 setTimeout(() => {
                   this.closeAdd()
+                 
 
-                },100) 
+                },0) 
 							}
 						},
 						({ type, info }) => {}
 					);
 				}
-			});
+      });
     },
     getOrderNo() {
       this.Axios(

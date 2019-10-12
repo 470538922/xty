@@ -1,10 +1,10 @@
 <template>
   <div class="supplierManage">
     <a-row style="line-height:50px;">
-      <a-button @click="addVisible=true">
+      <a-button @click="showAdd">
         <a-icon style="color:#1890ff;" type="plus" />新增
       </a-button>
-      <a-button @click="showEdit">
+      <a-button @click="showEdit" :disabled="selectedRowKeys.length!=1">
         <a-icon style="color:#1890ff;" type="edit" />修改
       </a-button>
       <a-button @click="showDeleteConfirm" :disabled="selectedRowKeys.length<1">
@@ -153,7 +153,7 @@
         </a-row>
         <a-row>
           <a-form-item :wrapper-col="{ span: 20,offset: 2 }" style="text-align:right">
-            <a-button @click="addVisible=false" style="margin-right:12px;">关闭</a-button>
+            <a-button @click="cancelAdd()" style="margin-right:12px;">关闭</a-button>
 						<a-button type="primary" @click="addSupplier()">提交</a-button>
 					</a-form-item>
         </a-row>
@@ -355,10 +355,19 @@ export default {
     sendDetails() {
       this.showDetails = true;
     },
+    showAdd(){
+      this.addVisible = true;
+      this.getNo();
+      
+    },
     showEdit(){
       this.editVisible = true;
       this.findOne(this.selectedRowKeys[0]);
       console.log(this.selectedRowKeys[0]);
+    },
+    cancelAdd(){
+      this.addVisible = false;
+      this.form.resetFields();
     },
     onSelectChange(selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys;
@@ -385,6 +394,7 @@ export default {
 					// }
 					let qs = require("qs");
 					let data = {
+            supplierNo: values.supplierNo,
 						supplierName: values.supplierName,
             linkman: values.linkman,
             linkPhone: values.linkPhone,
@@ -411,11 +421,6 @@ export default {
                 console.log(result);
                 this.getList();
                 this.addVisible = false;
-                setTimeout(() => {
-							    this.form.setFieldsValue({
-                  supplierNo: result.data.data.supplierNo
-                  });
-						    }, 100);
 							}
 						},
 						({ type, info }) => {}
@@ -464,7 +469,30 @@ export default {
 					);
 				}
 			});
-		},
+    },
+    getNo() {
+			this.Axios(
+				{
+					url: "/api-order/supplier/getNo",
+          type: "get",
+         	params: {},
+					option: { enableMsg: false }
+				},
+				this
+			).then(
+				result => {
+					if (result.data.code === 200) {
+            console.log(result);
+            setTimeout(() => {
+							this.form.setFieldsValue({
+								supplierNo: result.data.data,
+							});
+						}, 100);
+					}
+				},
+				({ type, info }) => {}
+			);
+    },
     getList() {
 			this.Axios(
 				{
