@@ -105,14 +105,14 @@ const columns = [
         ? "退货出库"
         : "其他出库";
     }
-  },
-
-  {
-    dataIndex: "warehouse",
-    key: "warehouse",
-    title: "收货仓库",
-    width: "15%"
   }
+
+  // {
+  //   dataIndex: "warehouse",
+  //   key: "warehouse",
+  //   title: "收货仓库",
+  //   width: "15%"
+  // }
 
   // {
   //   dataIndex: "schedule",
@@ -188,7 +188,7 @@ export default {
             this.data = this.data.map(item => {
               return {
                 ...item,
-                warehouse: item.warehouse.name
+                // warehouse: item.warehouse.name
               };
             });
             this.total = result.data.data.totalElement;

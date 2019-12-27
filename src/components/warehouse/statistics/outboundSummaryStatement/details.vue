@@ -5,10 +5,10 @@
         <span class="label_case">单据编号：</span>
         <span>{{detalisMsg.code}}</span>
       </a-col>
-      <a-col :span="12">
+      <!-- <a-col :span="12">
         <span class="label_case">出货仓库：</span>
         <span>{{detalisMsg.warehouse.name}}</span>
-      </a-col>
+      </a-col>-->
       <a-col :span="12">
         <span class="label_case">领料部门：</span>
         <span>{{detalisMsg.goName}}</span>
@@ -23,10 +23,10 @@
         <span class="label_case">单据编号：</span>
         <span>{{detalisMsg.code}}</span>
       </a-col>
-      <a-col :span="12">
+      <!-- <a-col :span="12">
         <span class="label_case">出货仓库：</span>
         <span>{{detalisMsg.warehouse.name}}</span>
-      </a-col>
+      </a-col>-->
       <a-col :span="12">
         <span class="label_case">客户名称：</span>
         <span>{{detalisMsg.goName}}</span>
@@ -41,10 +41,10 @@
         <span class="label_case">单据编号：</span>
         <span>{{detalisMsg.code}}</span>
       </a-col>
-      <a-col :span="12">
+      <!-- <a-col :span="12">
         <span class="label_case">出货仓库：</span>
         <span>{{detalisMsg.warehouse.name}}</span>
-      </a-col>
+      </a-col>-->
       <a-col :span="12">
         <span class="label_case">供应商：</span>
         <span>{{detalisMsg.goName}}</span>
@@ -59,10 +59,10 @@
         <span class="label_case">单据编号：</span>
         <span>{{detalisMsg.code}}</span>
       </a-col>
-      <a-col :span="12">
+      <!-- <a-col :span="12">
         <span class="label_case">出货仓库：</span>
         <span>{{detalisMsg.warehouse.name}}</span>
-      </a-col>
+      </a-col>-->
       <a-col :span="12">
         <span class="label_case">单位：</span>
         <span>{{detalisMsg.goName}}</span>
@@ -128,6 +128,12 @@ const columns = [
     width: 100
   },
   {
+    dataIndex: "warehouseName",
+    key: "warehouseName",
+    title: "仓库",
+    width: 100
+  },
+  {
     dataIndex: "remark",
     key: "remark",
     title: "备注",
@@ -173,7 +179,8 @@ export default {
                 specification: item.warehouseItem.specification,
                 unit: item.warehouseItem.unit,
                 amount: item.warehouseItem.amount,
-                classifiName: item.warehouseItem.classification.name
+                classifiName: item.warehouseItem.classification.name,
+                warehouseName: item.warehouseItem.warehouse.name
               };
             });
             this.detalisMsg = OneMsg;
