@@ -172,7 +172,7 @@ export default {
       pageSize: 10,
       total: 0,
       columns,
-      data: [{ phone: 111, id: 1 }],
+      data: [],
       startValue: null,
       endValue: null,
       startDate: "",
